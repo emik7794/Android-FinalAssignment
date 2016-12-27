@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    TextView dateTV = (TextView) findViewById(R.id.postDetailDate);
+    TextView titleTV = (TextView) findViewById(R.id.postDetailTitle);
+    TextView authorTV = (TextView) findViewById(R.id.postDetailAuthor);
+    TextView webLinkTV = (TextView) findViewById(R.id.postDetailWebLink);
+
+
+    // PREVIEW
+    <ImageView
+        android:layout_width="90dp"
+        android:layout_height="90dp"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:scaleType="centerInside"
+        android:id="@+id/postDetailPreview" />
+
+    // TITLE
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:layout_toRightOf="@+id/postDetailPreview"
+        android:layout_marginRight="20dp"
+        android:layout_marginTop="20dp"
+        android:layout_toEndOf="@+id/postDetailPreview"
+        android:id="@+id/postDetailTitle" />
+
+    // SUBREDDIT
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:text=""
+        android:id="@+id/postDetailSubreddit"
+        android:layout_alignParentTop="true"
+        android:layout_toRightOf="@+id/postDetailPreview"
+        android:layout_toEndOf="@+id/postDetailPreview" />
+
+    // DATE
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:layout_marginLeft="30dp"
+        android:id="@+id/postDetailDate"
+        android:layout_alignParentTop="true"
+        android:layout_toRightOf="@+id/postDetailSubreddit" />
+
+    // WEBLINK
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:id="@+id/postDetailWebLink"
+        android:layout_toEndOf="@+id/postDetailPreview"
+        android:layout_below="@+id/postDetailAuthor"
+        android:layout_toRightOf="@+id/postDetailPreview" />
+
+    // AUTHOR
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:id="@+id/postDetailAuthor"
+        android:layout_below="@+id/postDetailTitle"
+        android:layout_toRightOf="@+id/postDetailPreview"
+        android:layout_toEndOf="@+id/postDetailPreview" />
+
+</RelativeLayout>
