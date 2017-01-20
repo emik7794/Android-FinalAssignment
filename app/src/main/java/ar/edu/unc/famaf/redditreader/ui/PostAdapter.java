@@ -110,10 +110,15 @@ public class PostAdapter extends ArrayAdapter<PostModel> {
         Bitmap bitmapPreviewImage = new PreviewImageDBHelper(getContext()).getImage(urlPreviewImage);
 
         if(bitmapPreviewImage == null) { // Si la imagen no esta en la db la descargo.
-
             URL url = null;
             try {
                 url = new URL(pm.getUrlString());
+            } catch (MalformedURLException e) {
+                e.printStackTrace();
+            }
+            if (!viewHolder.isDownloading && url != null) {
+
+                viewHolder.isDownloading = true;
 
                 URL[] urlArray = new URL[1];
                 urlArray[0] = url;
@@ -129,11 +134,10 @@ public class PostAdapter extends ArrayAdapter<PostModel> {
                         } else {
                             viewHolder.asyncPreviewIV.setImageResource(R.drawable.reddit_icon);
                         }
-
+                        viewHolder.isDownloading = false;
                     }
                 }.execute(urlArray);
-            } catch (MalformedURLException e) {
-                e.printStackTrace();
+            } else {
                 viewHolder.asyncPreviewIV.setImageResource(R.drawable.reddit_icon);
             }
 
@@ -152,6 +156,7 @@ public class PostAdapter extends ArrayAdapter<PostModel> {
         public final TextView dateTV;
         public final ImageView asyncPreviewIV;
         public final ProgressBar progressBar;
+        boolean isDownloading;
 
 
         public ViewHolder(TextView titleTV, TextView authorTV, TextView commentsTV,

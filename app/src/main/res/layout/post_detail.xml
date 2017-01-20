@@ -3,12 +3,6 @@
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    TextView dateTV = (TextView) findViewById(R.id.postDetailDate);
-    TextView titleTV = (TextView) findViewById(R.id.postDetailTitle);
-    TextView authorTV = (TextView) findViewById(R.id.postDetailAuthor);
-    TextView webLinkTV = (TextView) findViewById(R.id.postDetailWebLink);
-
-
     // PREVIEW
     <ImageView
         android:layout_width="90dp"
@@ -60,6 +54,15 @@
         android:layout_toEndOf="@+id/postDetailPreview"
         android:layout_below="@+id/postDetailAuthor"
         android:layout_toRightOf="@+id/postDetailPreview" />
+
+    // COMMENTSLINK
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:id="@+id/postDetailCommentsLink"
+        android:layout_below="@+id/postDetailWebLink" />
+
 
     // AUTHOR
     <TextView

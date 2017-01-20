@@ -14,6 +14,7 @@ public class PostModel implements Serializable{
     private String urlString;
     private String subreddit;
     private String webLink;
+    private String commentsLink;
 
     public String getTitle() {
         return title;
@@ -62,4 +63,12 @@ public class PostModel implements Serializable{
     public String getWebLink() { return webLink; }
 
     public void setWebLink(String webLink) { this.webLink = webLink; }
+
+    public String getCommentsLink() {
+        return commentsLink;
+    }
+
+    public void setCommentsLink(String commentsLink) {
+        this.commentsLink = commentsLink;
+    }
 }

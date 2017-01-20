@@ -109,7 +109,7 @@ public class Parser {
         String date = null;
         String subreddit = null;
         String webLink = null;
-
+        String commentsLink = null;
 
         while (reader.hasNext()) {
             String name = reader.nextName();
@@ -132,6 +132,8 @@ public class Parser {
                 subreddit = reader.nextString();
             } else if (name.equals("url") && jsonToken != JsonToken.NULL) {
                 webLink = reader.nextString();
+            } else if (name.equals("permalink") && jsonToken != JsonToken.NULL) {
+                commentsLink = reader.nextString();
             } else {
                 reader.skipValue();
             }
@@ -144,6 +146,7 @@ public class Parser {
         postModel.setDate(date);
         postModel.setSubreddit(subreddit);
         postModel.setWebLink(webLink);
+        postModel.setCommentsLink("www.reddit.com" + commentsLink);
 
         return  postModel;
     }
