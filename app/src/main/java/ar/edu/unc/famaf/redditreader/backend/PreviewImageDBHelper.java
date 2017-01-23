@@ -18,7 +18,7 @@ public class PreviewImageDBHelper {
 
     public PreviewImageDBHelper(Context context) {
         this.dbHelper = new RedditDBHelper(context);
-        this.readableDataBase = dbHelper.getWritableDatabase();
+        this.readableDataBase = dbHelper.getReadableDatabase();
         this.writableDataBase = dbHelper.getWritableDatabase();
     }
 
