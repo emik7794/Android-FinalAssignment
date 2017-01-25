@@ -8,6 +8,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.List;
 
 import ar.edu.unc.famaf.redditreader.model.Listing;
@@ -16,15 +17,26 @@ import ar.edu.unc.famaf.redditreader.model.PostModel;
 
 public class GetTopPostsTask extends AsyncTask<RedditDBHelper, Void, List<PostModel>> {
 
+    GetTopPostsTask(int url_index) {
+        this.url_Index = url_index;
+    }
+
+    public int url_Index = 0;
+
     @Override
     protected List<PostModel> doInBackground(RedditDBHelper... redditDBHelpers) {
 
         InputStream input;
         RedditDBHelper dbreddit = redditDBHelpers[0];
 
+        ArrayList<String> urlArray = new ArrayList<>();
+        urlArray.add(0, "https://www.reddit.com/hot.json?limit=50");
+        urlArray.add(1, "https://www.reddit.com/new.json?limit=50");
+        urlArray.add(2, "https://www.reddit.com/top.json?limit=50");
+
         try {
             HttpURLConnection conn = (HttpURLConnection) new URL
-                    ("https://www.reddit.com/top.json?limit=50").openConnection();
+                    (urlArray.get(url_Index)).openConnection();
             conn.setRequestMethod("GET");
             input = conn.getInputStream();
             Parser parserJson = new Parser();

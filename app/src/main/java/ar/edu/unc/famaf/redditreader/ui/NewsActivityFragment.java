@@ -27,6 +27,25 @@ public class NewsActivityFragment extends Fragment {
 
     public NewsActivityFragment() {
     }
+    /**
+     * The fragment argument representing the section number for this
+     * fragment.
+     */
+    private static final String ARG_SECTION_NUMBER = "section_number";
+
+    /**
+     * Returns a new instance of this fragment for the given section
+     * number.
+     */
+    public static NewsActivityFragment newInstance(int sectionNumber) {
+        NewsActivityFragment fragment = new NewsActivityFragment();
+        Bundle args = new Bundle();
+        args.putInt(ARG_SECTION_NUMBER, sectionNumber);
+        fragment.setArguments(args);
+        return fragment;
+    }
+
+    int TAB_ID = 0;//getArguments().getInt(ARG_SECTION_NUMBER);
 
     List<PostModel> postModelList = new ArrayList<>();
     OnPostItemSelectedListener onPostItemSelectedListener;
@@ -63,7 +82,7 @@ public class NewsActivityFragment extends Fragment {
             }
         };
 
-        Backend.getInstance().getNextPosts(postsIteratorListener, getContext(), true);
+        Backend.getInstance().getNextPosts(postsIteratorListener, getContext(), true, TAB_ID);
 
         // Attach the listener to the AdapterView onCreate
         postsLV.setOnScrollListener(new EndlessScrollListener() {
@@ -71,7 +90,7 @@ public class NewsActivityFragment extends Fragment {
             public boolean onLoadMore(int page, int totalItemsCount) {
                 // Triggered only when new data needs to be appended to the list
                 // Add whatever code is needed to append new items to your AdapterView
-                Backend.getInstance().getNextPosts(postsIteratorListener, getContext(), false);
+                Backend.getInstance().getNextPosts(postsIteratorListener, getContext(), false, TAB_ID);
                 // or loadNextDataFromApi(totalItemsCount);
                 return true; // ONLY if more data is actually being loaded; false otherwise.
             }

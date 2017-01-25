@@ -9,8 +9,15 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import java.io.IOException;
+import java.io.InputStream;
+import java.net.HttpURLConnection;
+import java.net.URL;
+
 import ar.edu.unc.famaf.redditreader.R;
+import ar.edu.unc.famaf.redditreader.backend.Parser;
 import ar.edu.unc.famaf.redditreader.backend.PreviewImageDBHelper;
+import ar.edu.unc.famaf.redditreader.model.Listing;
 import ar.edu.unc.famaf.redditreader.model.PostModel;
 
 public class NewsDetailActivity extends AppCompatActivity {
@@ -64,9 +71,15 @@ public class NewsDetailActivity extends AppCompatActivity {
         commentsLinkTV.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intentCommentsLinkActivity = new Intent(getApplicationContext(), WebLinkActivity.class);
-                intentCommentsLinkActivity.putExtra(WebLinkActivity.WEB_LINK, commentsLink);
-                startActivity(intentCommentsLinkActivity);
+                try {
+                    HttpURLConnection conn = (HttpURLConnection) new URL(commentsLink + "?limit=1").openConnection();
+                    conn.setRequestMethod("GET");
+                    InputStream input = conn.getInputStream();
+                    Parser commentsParserJson = new Parser();
+                    Listing listing = commentsParserJson.readJsonStream(input);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
             }
         });
 

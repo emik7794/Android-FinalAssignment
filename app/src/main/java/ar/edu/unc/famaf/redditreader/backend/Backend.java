@@ -24,7 +24,7 @@ public class Backend {
 
     private int offset = 0; // lo utilizo para la consulta a la db como argumento del LIMIT.
 
-    public void getNextPosts(final PostsIteratorListener listener, final Context context, boolean savePosts) {
+    public void getNextPosts(final PostsIteratorListener listener, final Context context, boolean savePosts, int tabID) {
 
         RedditDBHelper dbReddit = new RedditDBHelper(context);
 
@@ -32,7 +32,8 @@ public class Backend {
         if (isNetworkAvailable(context) && savePosts) {
             RedditDBHelper[] dbRedditArray = new RedditDBHelper[1];
             dbRedditArray[0] = dbReddit;
-            new GetTopPostsTask() {
+
+            new GetTopPostsTask(tabID) {
                 @Override
                 protected void onPostExecute(List<PostModel> postModels) {
                     super.onPostExecute(postModels);

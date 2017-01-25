@@ -146,7 +146,7 @@ public class Parser {
         postModel.setDate(date);
         postModel.setSubreddit(subreddit);
         postModel.setWebLink(webLink);
-        postModel.setCommentsLink("www.reddit.com" + commentsLink);
+        postModel.setCommentsLink("www.reddit.com" + commentsLink + ".json");
 
         return  postModel;
     }
