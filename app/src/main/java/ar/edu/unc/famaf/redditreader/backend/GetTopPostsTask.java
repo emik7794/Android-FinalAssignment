@@ -17,11 +17,11 @@ import ar.edu.unc.famaf.redditreader.model.PostModel;
 
 public class GetTopPostsTask extends AsyncTask<RedditDBHelper, Void, List<PostModel>> {
 
-    GetTopPostsTask(int url_index) {
-        this.url_Index = url_index;
+    GetTopPostsTask(int tabID) {
+        this.tabID = tabID;
     }
 
-    public int url_Index = 0;
+    public int tabID = 0;
 
     @Override
     protected List<PostModel> doInBackground(RedditDBHelper... redditDBHelpers) {
@@ -36,7 +36,7 @@ public class GetTopPostsTask extends AsyncTask<RedditDBHelper, Void, List<PostMo
 
         try {
             HttpURLConnection conn = (HttpURLConnection) new URL
-                    (urlArray.get(url_Index)).openConnection();
+                    (urlArray.get(tabID)).openConnection();
             conn.setRequestMethod("GET");
             input = conn.getInputStream();
             Parser parserJson = new Parser();
@@ -54,6 +54,7 @@ public class GetTopPostsTask extends AsyncTask<RedditDBHelper, Void, List<PostMo
                     values.put(dbreddit.POST_TABLE_SUBREDDIT, listing.getChildren().get(i).getSubreddit());
                     values.put(dbreddit.POST_TABLE_WEBLINK, listing.getChildren().get(i).getWebLink());
                     values.put(dbreddit.POST_TABLE_COMMENTSLINK, listing.getChildren().get(i).getCommentsLink());
+                    values.put(dbreddit.POST_TABLE_TABID, String.valueOf(tabID));
                     long insertId = db.insert(dbreddit.POST_TABLE, null, values);
 
                 }

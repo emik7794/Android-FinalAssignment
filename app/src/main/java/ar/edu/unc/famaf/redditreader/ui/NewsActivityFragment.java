@@ -25,6 +25,15 @@ import ar.edu.unc.famaf.redditreader.model.PostModel;
  */
 public class NewsActivityFragment extends Fragment {
 
+
+    List<PostModel> postModelList = new ArrayList<>();
+    OnPostItemSelectedListener onPostItemSelectedListener;
+    int TAB_ID = 0;
+    int pos_aux;
+    static final int HOT = 0;
+    static final int NEW = 1;
+    static final int TOP = 2;
+
     public NewsActivityFragment() {
     }
     /**
@@ -45,10 +54,29 @@ public class NewsActivityFragment extends Fragment {
         return fragment;
     }
 
-    int TAB_ID = 0;//getArguments().getInt(ARG_SECTION_NUMBER);
 
-    List<PostModel> postModelList = new ArrayList<>();
-    OnPostItemSelectedListener onPostItemSelectedListener;
+    @Override
+    public void onCreate(Bundle savedInstanceState){
+        super.onCreate(savedInstanceState);
+
+        try {
+            pos_aux = getArguments().getInt(ARG_SECTION_NUMBER);
+        } catch (Exception e) {
+            pos_aux = -1;
+            e.printStackTrace();
+        }
+        switch (pos_aux) {
+            case HOT:
+                TAB_ID = HOT;
+                break;
+            case NEW:
+                TAB_ID = NEW;
+                break;
+            case TOP:
+                TAB_ID = TOP;
+                break;
+        }
+    }
 
 
     @Override
@@ -58,7 +86,7 @@ public class NewsActivityFragment extends Fragment {
         final View view = inflater.inflate(R.layout.fragment_news, container, false);
         final ListView postsLV = (ListView) view.findViewById(R.id.postsLV);
 
-
+        if (pos_aux == -1) return view;
 
         postsLV.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override

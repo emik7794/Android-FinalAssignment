@@ -37,14 +37,29 @@ public class Backend {
                 @Override
                 protected void onPostExecute(List<PostModel> postModels) {
                     super.onPostExecute(postModels);
+                    readPosts(context, listener, String.valueOf(tabID));
                 }
             }.execute(dbRedditArray);
+        } else {
+            readPosts(context, listener, String.valueOf(tabID));
         }
+    }
 
 
+    public boolean isNetworkAvailable(Context context) {
+        ConnectivityManager connectivityManager
+                = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
+        return activeNetworkInfo != null && activeNetworkInfo.isConnected();
+    }
+
+    public void readPosts (Context context, PostsIteratorListener listener, String tabID) {
+
+        RedditDBHelper dbReddit = new RedditDBHelper(context);
         SQLiteDatabase db = dbReddit.getReadableDatabase();
 
         Cursor cursor = db.rawQuery("SELECT * FROM " + dbReddit.POST_TABLE
+                + " WHERE " + RedditDBHelper.POST_TABLE_TABID + " = " + "'" + tabID + "'"
                 + " LIMIT " + String.valueOf(offset) + "," + "5", null);
 
         offset = offset + 5;
@@ -71,15 +86,6 @@ public class Backend {
         dbReddit.close();
 
         listener.nextPosts(postModelList);
-
-    }
-
-
-    public boolean isNetworkAvailable(Context context) {
-        ConnectivityManager connectivityManager
-                = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
-        NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
-        return activeNetworkInfo != null && activeNetworkInfo.isConnected();
     }
 
 }

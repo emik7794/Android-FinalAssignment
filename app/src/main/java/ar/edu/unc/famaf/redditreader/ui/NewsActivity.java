@@ -26,10 +26,6 @@ import ar.edu.unc.famaf.redditreader.model.PostModel;
 public class NewsActivity extends AppCompatActivity implements OnPostItemSelectedListener {
 
     public final static String POST_ID = "post_id";
-    public final static String TAB_ID = "tab_id";
-    static final int HOT = 0;
-    static final int NEW = 1;
-    static final int TOP = 2;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,9 +49,9 @@ public class NewsActivity extends AppCompatActivity implements OnPostItemSelecte
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 // When the given dropdown item is selected, show its contents in the
                 // container view.
-                //getSupportFragmentManager().beginTransaction()
-              //          .replace(R.id.container, NewsActivityFragment.newInstance(position))
-            //            .commit();
+                getSupportFragmentManager().beginTransaction()
+                        .replace(R.id.container, NewsActivityFragment.newInstance(position))
+                        .commit();
 
 
             }

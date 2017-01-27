@@ -36,21 +36,21 @@ public class NewsDetailActivity extends AppCompatActivity {
         String author = postModel.getAuthor();
         String urlPreview = postModel.getUrlString();
         final String webLink = postModel.getWebLink();
-        final String commentsLink = postModel.getCommentsLink();
+        //final String commentsLink = postModel.getCommentsLink();
 
         TextView subredditTV = (TextView) findViewById(R.id.postDetailSubreddit);
         TextView dateTV = (TextView) findViewById(R.id.postDetailDate);
         TextView titleTV = (TextView) findViewById(R.id.postDetailTitle);
         TextView authorTV = (TextView) findViewById(R.id.postDetailAuthor);
         TextView webLinkTV = (TextView) findViewById(R.id.postDetailWebLink);
-        TextView commentsLinkTV = (TextView) findViewById(R.id.postDetailCommentsLink);
+        //TextView commentsLinkTV = (TextView) findViewById(R.id.postDetailCommentsLink);
 
         subredditTV.setText("r/" + subreddit);
         dateTV.setText(date);
         titleTV.setText(title);
         authorTV.setText("by " + author);
         webLinkTV.setText("Sitio Web: " + webLink);
-        commentsLinkTV.setText("Desplegar Comentarios: " + commentsLink);
+        //commentsLinkTV.setText("Desplegar Comentarios: " + commentsLink);
 
         Bitmap bitmap = new PreviewImageDBHelper(this).getImage(urlPreview);
 
@@ -68,7 +68,7 @@ public class NewsDetailActivity extends AppCompatActivity {
             }
         });
 
-        commentsLinkTV.setOnClickListener(new View.OnClickListener() {
+/*        commentsLinkTV.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 try {
@@ -81,7 +81,7 @@ public class NewsDetailActivity extends AppCompatActivity {
                     e.printStackTrace();
                 }
             }
-        });
+        });*/
 
     }
 }

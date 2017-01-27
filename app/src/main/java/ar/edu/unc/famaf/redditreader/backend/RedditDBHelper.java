@@ -21,6 +21,7 @@ public class RedditDBHelper extends SQLiteOpenHelper {
     public static final String POST_TABLE_SUBREDDIT = "subreddit";
     public static final String POST_TABLE_WEBLINK = "webLink";
     public static final String POST_TABLE_COMMENTSLINK = "commentsLink";
+    public static final String POST_TABLE_TABID = "tabId";
 
 
     public RedditDBHelper(Context context) {
@@ -39,7 +40,8 @@ public class RedditDBHelper extends SQLiteOpenHelper {
                 + POST_TABLE_BYTESPREVIEWIMAGE + " blob,"
                 + POST_TABLE_SUBREDDIT + " text,"
                 + POST_TABLE_WEBLINK + " text,"
-                + POST_TABLE_COMMENTSLINK + " text"
+                + POST_TABLE_COMMENTSLINK + " text,"
+                + POST_TABLE_TABID + " text"
                 + " );";
         sqLiteDatabase.execSQL(createSentence);
 
