@@ -21,7 +21,7 @@ public class GetTopPostsTask extends AsyncTask<RedditDBHelper, Void, List<PostMo
         this.tabID = tabID;
     }
 
-    public int tabID = 0;
+    public int tabID;
 
     @Override
     protected List<PostModel> doInBackground(RedditDBHelper... redditDBHelpers) {
@@ -43,7 +43,9 @@ public class GetTopPostsTask extends AsyncTask<RedditDBHelper, Void, List<PostMo
             Listing listing = parserJson.readJsonStream(input);
             if (listing != null) {
                 SQLiteDatabase db = dbreddit.getWritableDatabase();
-                dbreddit.onUpgrade(db, RedditDBHelper.VERSION, RedditDBHelper.VERSION);
+                //dbreddit.onUpgrade(db, RedditDBHelper.VERSION, RedditDBHelper.VERSION);
+                String query_aux = RedditDBHelper.POST_TABLE_TABID + " = " + "'" + tabID + "'";
+                db.delete(RedditDBHelper.POST_TABLE, query_aux, null);
                 for (int i = 0; i < listing.getChildren().size(); i++) {
                     ContentValues values = new ContentValues();
                     values.put(dbreddit.POST_TABLE_TITLE, listing.getChildren().get(i).getTitle());

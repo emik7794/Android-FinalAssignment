@@ -53,7 +53,7 @@ public class Backend {
         return activeNetworkInfo != null && activeNetworkInfo.isConnected();
     }
 
-    public void readPosts (Context context, PostsIteratorListener listener, String tabID) {
+    public void readPosts(Context context, PostsIteratorListener listener, String tabID) {
 
         RedditDBHelper dbReddit = new RedditDBHelper(context);
         SQLiteDatabase db = dbReddit.getReadableDatabase();

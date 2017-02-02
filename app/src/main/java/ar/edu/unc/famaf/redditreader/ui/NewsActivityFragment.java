@@ -28,11 +28,14 @@ public class NewsActivityFragment extends Fragment {
 
     List<PostModel> postModelList = new ArrayList<>();
     OnPostItemSelectedListener onPostItemSelectedListener;
-    int TAB_ID = 0;
-    int pos_aux;
+    int TAB_ID = 1;
+    int pos_aux = -1;
     static final int HOT = 0;
     static final int NEW = 1;
     static final int TOP = 2;
+    private View view;
+    ListView postsLV = null;
+
 
     public NewsActivityFragment() {
     }
@@ -83,8 +86,14 @@ public class NewsActivityFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-        final View view = inflater.inflate(R.layout.fragment_news, container, false);
-        final ListView postsLV = (ListView) view.findViewById(R.id.postsLV);
+        view = inflater.inflate(R.layout.fragment_news, container, false);
+        postsLV = (ListView) view.findViewById(R.id.postsLV);
+
+        try {
+            pos_aux = getArguments().getInt(ARG_SECTION_NUMBER);
+        }catch (Exception e){
+            pos_aux = -1;
+        }
 
         if (pos_aux == -1) return view;
 
@@ -95,7 +104,6 @@ public class NewsActivityFragment extends Fragment {
                 onPostItemSelectedListener.onPostItemPicked(postModel);
             }
         });
-
 
 
         final PostAdapter adapter = new PostAdapter(getContext(), R.layout.post_row, postModelList);
@@ -124,6 +132,7 @@ public class NewsActivityFragment extends Fragment {
             }
 
         });
+
 
 
         return view;
