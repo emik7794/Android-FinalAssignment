@@ -3,6 +3,7 @@ package ar.edu.unc.famaf.redditreader.ui;
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.annotation.TargetApi;
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
@@ -51,7 +52,8 @@ public class LoginActivity extends AppCompatActivity  {
             @Override
             public boolean onEditorAction(TextView textView, int id, KeyEvent keyEvent) {
                 if (id == R.id.login || id == EditorInfo.IME_NULL) {
-                    attemptLogin();
+                    //attemptLogin();
+                    finish(); // Llamo al metodo finish() para que finalice la actividad.
                     return true;
                 }
                 return false;
@@ -69,6 +71,21 @@ public class LoginActivity extends AppCompatActivity  {
         mLoginFormView = findViewById(R.id.login_form);
         mProgressView = findViewById(R.id.login_progress);
     }
+
+    // Sobreescribo el metodo finish(), al invocarse este metodo finaliza la actividad.
+    @Override
+    public void finish() {
+        // Creo el intent del usuario para almacenar y enviar sus datos a NewsActivity
+        Intent intentUser = new Intent();
+        // Extraigo los datos de la vista mEmailView
+        String user_name = mEmailView.getText().toString();
+        // Almaceno los datos en intentUser
+        intentUser.putExtra("user_name", user_name);
+        // Envio los datos a la actividad NewsActivity
+        setResult(RESULT_OK, intentUser);
+        super.finish();
+    }
+
 
     /**
      * Attempts to sign in or register the account specified by the login form.

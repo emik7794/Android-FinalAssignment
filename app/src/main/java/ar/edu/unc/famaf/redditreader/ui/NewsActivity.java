@@ -29,6 +29,9 @@ import ar.edu.unc.famaf.redditreader.model.PostModel;
 
 public class NewsActivity extends AppCompatActivity implements OnPostItemSelectedListener {
 
+
+    static final int LOGIN_ACTIVITY = 1; // requestCode
+
     /**
      * The {@link android.support.v4.view.PagerAdapter} that will provide
      * fragments for each of the sections. We use a
@@ -74,17 +77,30 @@ public class NewsActivity extends AppCompatActivity implements OnPostItemSelecte
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
 
-        /*
         if (id == R.id.action_sign_in) {
-            TextView textView = (TextView) findViewById(R.id.loginStatusTextView);
-            textView.setText("User XXXX logged in");
-            return true;
+            NewsActivityFragment newsfragment = (NewsActivityFragment)
+                    getSupportFragmentManager().findFragmentById(R.id.news_activity_fragment_id);
+            // Creo el intent para comunicarme con la actividad LoginActivity
+            Intent intentLogin = new Intent(this, LoginActivity.class);
+            // startActivityForResult(Intent intent, int requestCode)
+            startActivityForResult(intentLogin, LOGIN_ACTIVITY);
         }
-        */
 
-        return super.onOptionsItemSelected(item);
+        return true;
     }
 
+    // Sobrescribo el metodo onActivityResult para recibir los datos de LoginActivity
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+
+        if(requestCode == LOGIN_ACTIVITY) {
+            if(resultCode == RESULT_OK) {
+                String user_name = data.getExtras().getString("user_name");
+                TextView textView = (TextView) findViewById(R.id.loginStatusTextView);
+                textView.setText("User " + user_name + " logged in");
+            }
+        }
+    }
 
     @Override
     public void onPostItemPicked(PostModel post) {
